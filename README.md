@@ -6,3 +6,4 @@ Project for HackED 2021
 ### Dependencies
     pip install covid
     pip install discord.py
+    pip install python-dotenv

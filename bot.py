@@ -14,8 +14,10 @@ async def on_ready():
    print(f'{discord_client.user} is online')
 
 @discord_client.command()
-async def hello(ctx):
-   await ctx.channel.send("world")
+async def commands(ctx):
+   await ctx.channel.send("!cases (country): displays the number of cases of selected country\n" 
+   + "!rank (country): displays the rank of selected country based on number of cases \n" 
+   + "!rate (country): displays the rate of change of cases of selected country")
 
 
 discord_client.run(DISCORD_KEY)

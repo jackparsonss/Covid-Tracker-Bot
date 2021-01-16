@@ -102,7 +102,23 @@ async def critical(ctx, *args):
 #-----!RANK-----#
 @discord_client.command()
 async def rank(ctx, *args):
-   pass
+   try:
+      if len(args) > 0:
+         n = int(''.join(args))
+         if n > 15:
+            await ctx.channel.send(f"Number of listing can't be greater than 15.")
 
+      else:
+         n = 10
+
+      # Rank by total deaths
+      data = covid.get_data()
+      deaths = sorted([(d['country'], d['deaths']) for d in data], key=lambda x: x[1], reverse=True)
+
+      # Send the first 15
+      out = "\n".join([f"{d[0]:<20} - {d[1]:<9,}" for d in deaths[:n]])
+      await ctx.channel.send(out)
+   except:
+      await ctx.channel.send("Invalid Input")
 
 discord_client.run(DISCORD_KEY)

@@ -16,12 +16,12 @@ async def on_ready():
 #-----!COMMANDS-----#
 @discord_client.command()
 async def commands(ctx):
-   await ctx.channel.send("!cases (country): displays the number of cases of selected country\n" 
-   + "!deaths (country): displays the number of deaths of selected country\n"
-   + "!recovered (country): displays the number of recovered people of selected country\n"
-   + "!tests (country): displays the number of people tested in selected country\n" 
-   + "!critical (country): displays the number of people in critical condition in selected country\n"
-   + "!rank: displays the rank of countries based on number of deaths") 
+   await ctx.channel.send("- !cases (country): displays the number of cases of selected country\n" 
+   + "\n- !deaths (country): displays the number of deaths of selected country\n"
+   + "\n- !recovered (country): displays the number of recovered people of selected country\n"
+   + "\n- !tests (country): displays the number of people tested in selected country\n" 
+   + "\n- !critical (country): displays the number of people in critical condition in selected country\n"
+   + "\n- !rank: displays the rank of countries based on number of deaths") 
 
 
 #-----!CASES-----#

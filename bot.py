@@ -12,14 +12,19 @@ covid = Covid(source="worldometers")
 async def on_ready():
    print(f'{discord_client.user} is online')
 
+
+#-----!COMMANDS-----#
 @discord_client.command()
 async def commands(ctx):
    await ctx.channel.send("!cases (country): displays the number of cases of selected country\n" 
-   + "!rank: displays the rank of countries based on number of cases \n" 
-   + "!rate (country): displays the rate of change of cases of selected country\n"
-   + "!deaths (country): displays the number of deaths of selected country"
-   + "!recovered (country): displays the number of recovered people of selected country" )
+   + "!deaths (country): displays the number of deaths of selected country\n"
+   + "!recovered (country): displays the number of recovered people of selected country\n"
+   + "!tests (country): displays the number of people tested in selected country\n" 
+   + "!critical (country): displays the number of people in critical condition in selected country\n"
+   + "!rank: displays the rank of countries based on number of deaths") 
 
+
+#-----!CASES-----#
 @discord_client.command()
 async def cases(ctx, *args):
    try:
@@ -32,12 +37,9 @@ async def cases(ctx, *args):
          await ctx.channel.send(f"Give a country name")
    except:
       await ctx.channel.send("Invalid Country")
-   
-@discord_client.command()
-async def rank(ctx, *args):
-   pass
 
 
+#-----!DEATHS-----#
 @discord_client.command()
 async def deaths(ctx, *args):
    try:
@@ -52,6 +54,7 @@ async def deaths(ctx, *args):
       await ctx.channel.send("Invalid Country")
 
 
+#-----!RECOVERED-----#
 @discord_client.command()
 async def recovered(ctx, *args):
    try:
@@ -66,6 +69,22 @@ async def recovered(ctx, *args):
       await ctx.channel.send("Invalid Country")
 
 
+#-----!TESTS-----#
+@discord_client.command()
+async def tests(ctx, *args):
+   try:
+      if args:
+         country = ' '.join(args)
+         cas = covid.get_status_by_country_name(f"{country}")
+         await ctx.channel.send(f"Total Tests in {country}: {int(cas['total_tests']):,}")
+      
+      else:
+         await ctx.channel.send(f"Give a country name")
+   except:
+      await ctx.channel.send("Invalid Country")
+
+
+#-----!CRITICAL-----#
 @discord_client.command()
 async def critical(ctx, *args):
    try:
@@ -78,5 +97,12 @@ async def critical(ctx, *args):
          await ctx.channel.send(f"Give a country name")
    except:
       await ctx.channel.send("Invalid Country")
+
+
+#-----!RANK-----#
+@discord_client.command()
+async def rank(ctx, *args):
+   pass
+
 
 discord_client.run(DISCORD_KEY)

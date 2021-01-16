@@ -6,7 +6,7 @@ from discord.ext import commands
 DISCORD_KEY = os.getenv('DISCORD_KEY')
 
 discord_client = commands.Bot(command_prefix='!')
-covid = Covid()
+covid = Covid(source="worldometers")
 
 @discord_client.event
 async def on_ready():
@@ -65,5 +65,18 @@ async def recovered(ctx, *args):
    except:
       await ctx.channel.send("Invalid Country")
 
+
+@discord_client.command()
+async def critical(ctx, *args):
+   try:
+      if args:
+         country = ' '.join(args)
+         cas = covid.get_status_by_country_name(f"{country}")
+         await ctx.channel.send(f"Critical Cases in {country}: {int(cas['critical']):,}")
+      
+      else:
+         await ctx.channel.send(f"Give a country name")
+   except:
+      await ctx.channel.send("Invalid Country")
 
 discord_client.run(DISCORD_KEY)

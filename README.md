@@ -2,8 +2,10 @@
 
 Project for HackED 2021
 
+### How to Run:
+    python bot.py
 
-### Dependencies
+### Dependencies:
     pip install covid
     pip install discord.py
     pip install python-dotenv

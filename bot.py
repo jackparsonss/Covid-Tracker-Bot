@@ -15,9 +15,10 @@ async def on_ready():
 @discord_client.command()
 async def commands(ctx):
    await ctx.channel.send("!cases (country): displays the number of cases of selected country\n" 
-   + "!rank (country): displays the rank of selected country based on number of cases \n" 
+   + "!rank: displays the rank of countries based on number of cases \n" 
    + "!rate (country): displays the rate of change of cases of selected country\n"
-   + "!deaths (country) displays the number of deaths of selected country" )
+   + "!deaths (country): displays the number of deaths of selected country"
+   + "!recovered (country): displays the number of recovered people of selected country" )
 
 @discord_client.command()
 async def cases(ctx, *args):
@@ -36,6 +37,7 @@ async def cases(ctx, *args):
 async def rank(ctx, *args):
    pass
 
+
 @discord_client.command()
 async def deaths(ctx, *args):
    try:
@@ -43,6 +45,20 @@ async def deaths(ctx, *args):
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
          await ctx.channel.send(f"Deaths in {country}: {int(cas['deaths']):,}")
+      
+      else:
+         await ctx.channel.send(f"Give a country name")
+   except:
+      await ctx.channel.send("Invalid Country")
+
+
+@discord_client.command()
+async def recovered(ctx, *args):
+   try:
+      if args:
+         country = ' '.join(args)
+         cas = covid.get_status_by_country_name(f"{country}")
+         await ctx.channel.send(f"Recoveries in {country}: {int(cas['recovered']):,}")
       
       else:
          await ctx.channel.send(f"Give a country name")

@@ -21,16 +21,33 @@ async def commands(ctx):
 
 @discord_client.command()
 async def cases(ctx, *args):
-   if args:
-      country = args[0]
-      cas = covid.get_status_by_country_name(f"{country}")
-      await ctx.channel.send(f"Cases in {country} - {int(cas['active']):,}")
-   
-   else:
-      await ctx.channel.send(f"Give a country name")
+   try:
+      if args:
+         country = ' '.join(args)
+         cas = covid.get_status_by_country_name(f"{country}")
+         await ctx.channel.send(f"Cases in {country}: {int(cas['active']):,}")
+      
+      else:
+         await ctx.channel.send(f"Give a country name")
+   except:
+      await ctx.channel.send("Invalid Country")
    
 @discord_client.command()
 async def rank(ctx, *args):
    pass
+
+@discord_client.command()
+async def deaths(ctx, *args):
+   try:
+      if args:
+         country = ' '.join(args)
+         cas = covid.get_status_by_country_name(f"{country}")
+         await ctx.channel.send(f"Deaths in {country}: {int(cas['deaths']):,}")
+      
+      else:
+         await ctx.channel.send(f"Give a country name")
+   except:
+      await ctx.channel.send("Invalid Country")
+
 
 discord_client.run(DISCORD_KEY)

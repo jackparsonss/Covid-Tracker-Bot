@@ -3,11 +3,14 @@ import discord
 import wikipedia
 from covid import Covid
 from discord.ext import commands
+from vaccine import Vaccine
 
 DISCORD_KEY = os.getenv('DISCORD_KEY')
 
 discord_client = commands.Bot(command_prefix='!')
 covid = Covid(source="worldometers")
+vaccine = Vaccine()
+vaccine.update_last_indexes()
 
 @discord_client.event
 async def on_ready():
@@ -23,6 +26,7 @@ async def commands(ctx):
    + "**• !deaths (country)**: displays the number of deaths of selected country\n"
    + "**• !recovered (country)**: displays the number of recovered people of selected country\n"
    + "**• !tests (country)**: displays the number of people tested in selected country\n" 
+   + "**• !vaccines (country)**: displays the total number of vaccines administered in the selected country\n" 
    + "**• !critical (country)**: displays the number of people in critical condition in selected country\n"
    + "**• !rank (int)**: displays the top (param) rank of countries based on number of deaths\n"
    + "**• !total**: displays the global data across multiple criteria\n"
@@ -169,5 +173,27 @@ async def total(ctx):
       
    except:
       await ctx.channel.send("Error")
+
+#----!VACCINES----#
+@discord_client.command()
+async def vaccines(ctx, *args):
+   try:
+      if len(args) == 0:
+         await ctx.channel.send("Usage: !vaccines <country_name>")
+      
+      else:
+         country_name = args[0]
+
+         # Do slies for countries
+
+         if (m := vaccine.get_total_vaccinations(country_name)):
+            await ctx.channel.send(f"Total Vaccines administered in {country_name}: **{int(m):,}**")
+         
+         else:
+            await ctx.channel.send(f"No information about {country_name}")
+      
+   except:
+      await ctx.channel.send("Error")
+
 
 discord_client.run(DISCORD_KEY)

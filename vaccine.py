@@ -89,15 +89,3 @@ class Vaccine:
     def get_daily_vaccinations(self,this_country):
         given_dict = self.find_dict_by_name(this_country)
         return given_dict['daily_vaccinations'] if given_dict else None
-
-
-#vaccine = Vaccine()
-# --------------------------------------------
-#                  WARNING(time cosuming only uncomment when you want to update to latest data example once a day)
-# vaccine.update_last_indexes()
-#--------------------------------------------
-
-#country_name = input("Give a country name: ")
-#print(vaccine.get_people_vaccinated('Canada'))
-#print(vaccine.get_daily_vaccinations(country_name))
-#print(vaccine.get_total_vaccinations(country_name))

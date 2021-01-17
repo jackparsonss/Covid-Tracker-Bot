@@ -1,7 +1,7 @@
 # Covid-Tracker-Bot
 
 Project for HackED 2021
-In this project we created a discord bot which used the Johns Jopkins university api to fetch covid-19 related data, this data is displayed using various commands listed below
+In this project we created a discord bot which used the Johns Jopkins university api to fetch covid-19 related data, as well the wikipedia api was used for a summary of the virus and the discord api to put everything together, this data is displayed using various commands listed below
 
 |       Commands       |                            Description                                  |
 | -------------------- | ----------------------------------------------------------------------- |

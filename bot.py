@@ -28,7 +28,6 @@ async def commands(ctx):
    + "**• !tests (country)**: displays the number of people tested in selected country\n" 
    + "**• !vaccines (country)**: displays the total number of vaccines administered in the selected country\n" 
    + "**• !critical (country)**: displays the number of people in critical condition in selected country\n"
-   + "**• !vaccines (country)**: displays the number of vaccines given out in selected country\n"
    + "**• !rank (int)**: displays the top (param) rank of countries based on number of deaths\n"
    + "**• !total**: displays the global data across multiple criteria\n"
    + "**• !sam:** secret!") 
@@ -188,13 +187,13 @@ async def vaccines(ctx, *args):
          # Do slies for countries
 
          if (m := vaccine.get_total_vaccinations(country_name)):
-            await ctx.channel.send(f"Total Vaccines administered in {country_name}: **{int(m):,}**")
+            await ctx.channel.send(f"Total Vaccines administered in {country_name}: ***{int(m):,}***")
          
          else:
             await ctx.channel.send(f"No information about {country_name}")
       
    except:
-      await ctx.channel.send("Error")
+      await ctx.channel.send("Error fetching Vaccine Data")
 
 
 discord_client.run(DISCORD_KEY)

@@ -24,3 +24,4 @@ In this project we created a discord bot which used the Johns Jopkins university
     pip install covid
     pip install discord.py
     pip install wikipedia
+    pip install requests-html

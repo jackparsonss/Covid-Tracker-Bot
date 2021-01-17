@@ -6,7 +6,7 @@ In this project we created a discord bot which used the Johns Jopkins university
 |       Commands       |                            Description                                  |
 | -------------------- | ----------------------------------------------------------------------- |
 | !info                | Displays a summary of the Covid-19 virus                                |
-| !commands (country)  | Lists all other commands                                                |
+| !commands            | Lists all other commands                                                |
 | !cases (country)     | Displays the number of cases of selected country                        |
 | !deaths (country)    | Displays the number of deaths of selected country                       |
 | !recovered (country) | Displays the number of recovered people of selected country             |

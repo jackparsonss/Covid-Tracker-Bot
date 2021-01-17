@@ -1,8 +1,8 @@
 import os
 import discord
+import wikipedia
 from covid import Covid
 from discord.ext import commands
-import wikipedia
 
 DISCORD_KEY = os.getenv('DISCORD_KEY')
 
@@ -17,20 +17,24 @@ async def on_ready():
 #-----!COMMANDS-----#
 @discord_client.command()
 async def commands(ctx):
+   # lists all commands
    await ctx.channel.send("- !info: displays a summary of the Covid-19 virus\n"
    + "\n- !cases (country): displays the number of cases of selected country\n" 
    + "\n- !deaths (country): displays the number of deaths of selected country\n"
    + "\n- !recovered (country): displays the number of recovered people of selected country\n"
    + "\n- !tests (country): displays the number of people tested in selected country\n" 
    + "\n- !critical (country): displays the number of people in critical condition in selected country\n"
-   + "\n- !rank: displays the rank of countries based on number of deaths\n"
-   + "\n- !sam: secret") 
+   + "\n- !rank (int): displays the top (param) rank of countries based on number of deaths\n"
+   + "\n- !total: displays the global data across multiple criteria\n"
+   + "\n- !sam: secret!") 
+
 
 #-----!SAM-----#
 @discord_client.command()
 async def sam(ctx):
+   # sends pogsam emote
    try:
-      await ctx.channel.send(file=discord.File('sampog.png'))
+      await ctx.channel.send(file=discord.File('pogsam.png'))
    except:
       print('Error sending image')
 
@@ -38,6 +42,7 @@ async def sam(ctx):
 #-----!INFO-----#
 @discord_client.command()
 async def info(ctx):
+   # sends short summary of Covid-19
    try:
       wiki_response = wikipedia.summary("Covid-19", sentences=13)
       await ctx.channel.send(wiki_response)
@@ -48,6 +53,7 @@ async def info(ctx):
 #-----!CASES-----#
 @discord_client.command()
 async def cases(ctx, *args):
+   # sends number of cases of given country
    try:
       if args:
          country = ' '.join(args)
@@ -63,6 +69,7 @@ async def cases(ctx, *args):
 #-----!DEATHS-----#
 @discord_client.command()
 async def deaths(ctx, *args):
+   # sends number of deaths of given country
    try:
       if args:
          country = ' '.join(args)
@@ -78,6 +85,7 @@ async def deaths(ctx, *args):
 #-----!RECOVERED-----#
 @discord_client.command()
 async def recovered(ctx, *args):
+   # sends number of deaths of given country
    try:
       if args:
          country = ' '.join(args)
@@ -93,6 +101,7 @@ async def recovered(ctx, *args):
 #-----!TESTS-----#
 @discord_client.command()
 async def tests(ctx, *args):
+   # sends the number of tests of a given country
    try:
       if args:
          country = ' '.join(args)
@@ -108,6 +117,7 @@ async def tests(ctx, *args):
 #-----!CRITICAL-----#
 @discord_client.command()
 async def critical(ctx, *args):
+   # sends the number of people in critical condition of a given country
    try:
       if args:
          country = ' '.join(args)
@@ -123,6 +133,7 @@ async def critical(ctx, *args):
 #-----!RANK-----#
 @discord_client.command()
 async def rank(ctx, *args):
+   # orders countries based off of number of deaths, param controls how many are listed
    try:
       if len(args) > 0:
          n = int(''.join(args))
@@ -141,5 +152,22 @@ async def rank(ctx, *args):
       await ctx.channel.send(out)
    except:
       await ctx.channel.send("Invalid Input")
+
+
+#-----!TOTAL-----#
+@discord_client.command()
+async def total(ctx):
+   # sends the number of people in critical condition of a given country
+   try:
+      total = {'Active': covid.get_total_active_cases(), 'Confirmed': covid.get_total_confirmed_cases(), 'Recovered': covid.get_total_recovered(), 'Deaths':covid.get_total_deaths()}
+
+      out = []
+      for key, value in total.items():
+         out.append(f"{key}: {value:,}\n")
+
+      await ctx.channel.send(''.join(out))
+      
+   except:
+      await ctx.channel.send("Error")
 
 discord_client.run(DISCORD_KEY)

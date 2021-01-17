@@ -18,15 +18,15 @@ async def on_ready():
 @discord_client.command()
 async def commands(ctx):
    # lists all commands
-   await ctx.channel.send("- !info: displays a summary of the Covid-19 virus\n"
-   + "\n- !cases (country): displays the number of cases of selected country\n" 
-   + "\n- !deaths (country): displays the number of deaths of selected country\n"
-   + "\n- !recovered (country): displays the number of recovered people of selected country\n"
-   + "\n- !tests (country): displays the number of people tested in selected country\n" 
-   + "\n- !critical (country): displays the number of people in critical condition in selected country\n"
-   + "\n- !rank (int): displays the top (param) rank of countries based on number of deaths\n"
-   + "\n- !total: displays the global data across multiple criteria\n"
-   + "\n- !sam: secret!") 
+   await ctx.channel.send("- **!info**: displays a summary of the Covid-19 virus\n"
+   + "- **!cases** (country): displays the number of cases of selected country\n" 
+   + "- **!deaths** (country): displays the number of deaths of selected country\n"
+   + "- **!recovered** (country): displays the number of recovered people of selected country\n"
+   + "- **!tests** (country): displays the number of people tested in selected country\n" 
+   + "- **!critical** (country): displays the number of people in critical condition in selected country\n"
+   + "- **!rank** (int): displays the top (param) rank of countries based on number of deaths\n"
+   + "- **!total**: displays the global data across multiple criteria"
+   + "- !sam: secret!") 
 
 
 #-----!SAM-----#
@@ -58,7 +58,7 @@ async def cases(ctx, *args):
       if args:
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
-         await ctx.channel.send(f"Cases in {country}: {int(cas['active']):,}")
+         await ctx.channel.send(f"Cases in {country}: ***{int(cas['active']):,}***")
       
       else:
          await ctx.channel.send(f"Give a country name")
@@ -74,7 +74,7 @@ async def deaths(ctx, *args):
       if args:
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
-         await ctx.channel.send(f"Deaths in {country}: {int(cas['deaths']):,}")
+         await ctx.channel.send(f"Deaths in {country}: ***{int(cas['deaths']):,}***")
       
       else:
          await ctx.channel.send(f"Give a country name")
@@ -90,7 +90,7 @@ async def recovered(ctx, *args):
       if args:
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
-         await ctx.channel.send(f"Recoveries in {country}: {int(cas['recovered']):,}")
+         await ctx.channel.send(f"Recoveries in {country}: ***{int(cas['recovered']):,}***")
       
       else:
          await ctx.channel.send(f"Give a country name")
@@ -106,7 +106,7 @@ async def tests(ctx, *args):
       if args:
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
-         await ctx.channel.send(f"Total Tests in {country}: {int(cas['total_tests']):,}")
+         await ctx.channel.send(f"Total Tests in {country}: ***{int(cas['total_tests']):,}***")
       
       else:
          await ctx.channel.send(f"Give a country name")
@@ -122,7 +122,7 @@ async def critical(ctx, *args):
       if args:
          country = ' '.join(args)
          cas = covid.get_status_by_country_name(f"{country}")
-         await ctx.channel.send(f"Critical Cases in {country}: {int(cas['critical']):,}")
+         await ctx.channel.send(f"Critical Cases in {country}: ***{int(cas['critical']):,}***")
       
       else:
          await ctx.channel.send(f"Give a country name")
@@ -148,7 +148,7 @@ async def rank(ctx, *args):
       deaths = sorted([(d['country'], d['deaths']) for d in data], key=lambda x: x[1], reverse=True)
 
       # Send the first 15
-      out = "\n".join([f"{d[0]:<20} - {d[1]:<9,}" for d in deaths[:n]])
+      out = "\n".join([f"{d[0]:<20} - ***{d[1]:<9,}***" for d in deaths[:n]])
       await ctx.channel.send(out)
    except:
       await ctx.channel.send("Invalid Input")
@@ -159,11 +159,11 @@ async def rank(ctx, *args):
 async def total(ctx):
    # sends the number of people in critical condition of a given country
    try:
-      total = {'Active': covid.get_total_active_cases(), 'Confirmed': covid.get_total_confirmed_cases(), 'Recovered': covid.get_total_recovered(), 'Deaths':covid.get_total_deaths()}
+      total = {'Active Cases': covid.get_total_active_cases(), 'Confirmed Cases': covid.get_total_confirmed_cases(), 'Recovered': covid.get_total_recovered(), 'Deaths':covid.get_total_deaths()}
 
       out = []
       for key, value in total.items():
-         out.append(f"{key}: {value:,}\n")
+         out.append(f"***{key}***: {value:,}\n")
 
       await ctx.channel.send(''.join(out))
       

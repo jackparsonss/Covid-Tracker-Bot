@@ -17,22 +17,22 @@ async def on_ready():
 #-----!COMMANDS-----#
 @discord_client.command()
 async def commands(ctx):
-   # lists all commands
-   await ctx.channel.send("- **!info**: displays a summary of the Covid-19 virus\n"
-   + "- **!cases** (country): displays the number of cases of selected country\n" 
-   + "- **!deaths** (country): displays the number of deaths of selected country\n"
-   + "- **!recovered** (country): displays the number of recovered people of selected country\n"
-   + "- **!tests** (country): displays the number of people tested in selected country\n" 
-   + "- **!critical** (country): displays the number of people in critical condition in selected country\n"
-   + "- **!rank** (int): displays the top (param) rank of countries based on number of deaths\n"
-   + "- **!total**: displays the global data across multiple criteria"
-   + "- !sam: secret!") 
+   # Lists all commands
+   await ctx.channel.send("**• !info:** displays a summary of the Covid-19 virus\n"
+   + "**• !cases (country)**: displays the number of active cases of selected country\n" 
+   + "**• !deaths (country)**: displays the number of deaths of selected country\n"
+   + "**• !recovered (country)**: displays the number of recovered people of selected country\n"
+   + "**• !tests (country)**: displays the number of people tested in selected country\n" 
+   + "**• !critical (country)**: displays the number of people in critical condition in selected country\n"
+   + "**• !rank (int)**: displays the top (param) rank of countries based on number of deaths\n"
+   + "**• !total**: displays the global data across multiple criteria\n"
+   + "**• !sam:** secret!") 
 
 
 #-----!SAM-----#
 @discord_client.command()
 async def sam(ctx):
-   # sends pogsam emote
+   # Sends pogsam emote
    try:
       await ctx.channel.send(file=discord.File('pogsam.png'))
    except:
@@ -42,7 +42,7 @@ async def sam(ctx):
 #-----!INFO-----#
 @discord_client.command()
 async def info(ctx):
-   # sends short summary of Covid-19
+   # Sends short summary of Covid-19
    try:
       wiki_response = wikipedia.summary("Covid-19", sentences=13)
       await ctx.channel.send(wiki_response)
@@ -53,7 +53,7 @@ async def info(ctx):
 #-----!CASES-----#
 @discord_client.command()
 async def cases(ctx, *args):
-   # sends number of cases of given country
+   # Sends number of cases of given country
    try:
       if args:
          country = ' '.join(args)
@@ -69,7 +69,7 @@ async def cases(ctx, *args):
 #-----!DEATHS-----#
 @discord_client.command()
 async def deaths(ctx, *args):
-   # sends number of deaths of given country
+   # Sends number of deaths of given country
    try:
       if args:
          country = ' '.join(args)
@@ -101,7 +101,7 @@ async def recovered(ctx, *args):
 #-----!TESTS-----#
 @discord_client.command()
 async def tests(ctx, *args):
-   # sends the number of tests of a given country
+   # Sends the number of tests of a given country
    try:
       if args:
          country = ' '.join(args)
@@ -117,7 +117,7 @@ async def tests(ctx, *args):
 #-----!CRITICAL-----#
 @discord_client.command()
 async def critical(ctx, *args):
-   # sends the number of people in critical condition of a given country
+   # Sends the number of people in critical condition of a given country
    try:
       if args:
          country = ' '.join(args)
@@ -133,7 +133,7 @@ async def critical(ctx, *args):
 #-----!RANK-----#
 @discord_client.command()
 async def rank(ctx, *args):
-   # orders countries based off of number of deaths, param controls how many are listed
+   # Orders countries based off of number of deaths, param controls how many are listed
    try:
       if len(args) > 0:
          n = int(''.join(args))
@@ -157,7 +157,7 @@ async def rank(ctx, *args):
 #-----!TOTAL-----#
 @discord_client.command()
 async def total(ctx):
-   # sends the number of people in critical condition of a given country
+   # Sends the number of people in critical condition of a given country
    try:
       total = {'Active Cases': covid.get_total_active_cases(), 'Confirmed Cases': covid.get_total_confirmed_cases(), 'Recovered': covid.get_total_recovered(), 'Deaths':covid.get_total_deaths()}
 

@@ -2,6 +2,7 @@ import os
 import discord
 from covid import Covid
 from discord.ext import commands
+import wikipedia
 
 DISCORD_KEY = os.getenv('DISCORD_KEY')
 
@@ -16,12 +17,23 @@ async def on_ready():
 #-----!COMMANDS-----#
 @discord_client.command()
 async def commands(ctx):
-   await ctx.channel.send("- !cases (country): displays the number of cases of selected country\n" 
+   await ctx.channel.send("- !info: displaysa summary of the Covid-19 virus\n"
+   + "\n- !cases (country): displays the number of cases of selected country\n" 
    + "\n- !deaths (country): displays the number of deaths of selected country\n"
    + "\n- !recovered (country): displays the number of recovered people of selected country\n"
    + "\n- !tests (country): displays the number of people tested in selected country\n" 
    + "\n- !critical (country): displays the number of people in critical condition in selected country\n"
    + "\n- !rank: displays the rank of countries based on number of deaths") 
+
+
+#-----!INFO-----#
+@discord_client.command()
+async def info(ctx):
+   try:
+      wiki_response = wikipedia.summary("Covid-19", sentences=13)
+      await ctx.channel.send(wiki_response)
+   except:
+      await ctx.channel.send("Wikipedia api error")
 
 
 #-----!CASES-----#

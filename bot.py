@@ -24,6 +24,7 @@ async def commands(ctx):
    + "**• !recovered (country)**: displays the number of recovered people of selected country\n"
    + "**• !tests (country)**: displays the number of people tested in selected country\n" 
    + "**• !critical (country)**: displays the number of people in critical condition in selected country\n"
+   + "**• !vaccines (country)**: displays the number of vaccines given out in selected country\n"
    + "**• !rank (int)**: displays the top (param) rank of countries based on number of deaths\n"
    + "**• !total**: displays the global data across multiple criteria\n"
    + "**• !sam:** secret!") 

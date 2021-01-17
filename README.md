@@ -13,7 +13,7 @@ In this project we created a discord bot which used the Johns Jopkins university
 | !tests (country)     | Displays the number of people tested in selected country                |
 | !critical (country)  | Displays the number of people in critical condition in selected country |
 | !rank (int)          | Displays the top (param) rank of countries based on number of deaths    |
-| !total               | Displays the global data across multiple criteria
+| !total               | Displays the global data across multiple criteria                       | 
 | !sam                 | Top Secret Command                                                      |
 
 ### How to Run:
